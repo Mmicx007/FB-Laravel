@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('pages.index')" :active="request()->routeIs('pages.index')">
+                        {{ __('Pages') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('campaign.index')" :active="request()->routeIs('campaign.index')">
+                        {{ __('Campaigns') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('facebook.ads')" :active="request()->routeIs('facebook.ads')">
+                        {{ __('Campaign Ads') }}
+                    </x-nav-link>
                 </div>
             </div>
 

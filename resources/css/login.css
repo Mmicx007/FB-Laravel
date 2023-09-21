@@ -1,0 +1,28 @@
+body {
+  background-color: #f8f9fa; /* Light gray background */
+}
+.container {
+  margin-top: 100px;
+}
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  background-color: #007bff; /* Primary blue color */
+  color: #fff; /* White text color */
+  border-radius: 10px 10px 0 0;
+}
+.card-body {
+  padding: 30px;
+}
+.btn-facebook {
+  background-color: #1877f2; /* Facebook blue color */
+  border: none;
+  color:#ffffff;
+  margin-top: 5px;
+}
+.btn-facebook:hover {
+  background-color: #1659a2; /* Darker Facebook blue on hover */
+}
