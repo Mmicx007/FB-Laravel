@@ -7,6 +7,8 @@
     "require": {
         "php": "^7.3|^8.0",
         "facebook/graph-sdk": "^5.7",
+        "facebook/php-ads-sdk": "^16.0",
+        "facebook/php-business-sdk": "^16.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^8.75",

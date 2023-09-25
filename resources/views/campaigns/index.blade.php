@@ -12,6 +12,15 @@
             {{ session('success') }}
         </div>
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row justify-content-end mb-3">
         <div class="col-md-2 text-right">
             <a href="{{ route('campaigns.create') }}" class="btn btn-success">Add Campaign</a>
@@ -25,9 +34,7 @@
                 <th>Name</th>
                 <th>Budget</th>
                 <th>Target Audience</th>
-                <th>Ad Content</th>
                 <th>Start Date</th>
-                <th>End Date</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -40,9 +47,7 @@
                     <td>{{ $campaign->name }}</td>
                     <td>${{ number_format($campaign->budget, 2) }}</td>
                     <td>{{ $campaign->target_audience }}</td>
-                    <td>{{ $campaign->ad_content }}</td>
                     <td>{{ date('d-m-Y h:i a', strtotime($campaign->start_date)) }}</td>
-                    <td>{{ date('d-m-Y h:i a', strtotime($campaign->end_date)) }}</td>
                     <td>
                         <a href="{{ route('campaigns.edit', $campaign->id) }}" class="btn btn-primary">Edit</a>
                     </td>

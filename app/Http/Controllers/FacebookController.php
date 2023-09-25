@@ -16,6 +16,17 @@ use App\Models\Ads;
 
 class FacebookController extends Controller
 {
+    protected $fb;
+
+    public function __construct()
+    {
+        // Initialize the Facebook object in the constructor
+        $this->fb = new Facebook([
+            'app_id' => config('services.facebook.client_id'),
+            'app_secret' => config('services.facebook.client_secret'),
+            'default_graph_version' => 'v16.0',
+        ]);
+    }
 
     public function redirectToFacebook()
     {
@@ -49,6 +60,7 @@ class FacebookController extends Controller
         } else{
             $user->update([
                 'access_token' => $socialiteUser->token,
+                'facebook_id' => $socialiteUser->id,
                 'name' => $socialiteUser->name,
                 'email' => $socialiteUser->email,
                 'updated_at' => Carbon::now()
@@ -59,23 +71,17 @@ class FacebookController extends Controller
 
         $this->getPages();
 
+        $this->getAdAccounts();
+
         return redirect()->route('dashboard');
     }
 
     public function getPages()
     {
-        $fb = new Facebook([
-            'app_id' => config('services.facebook.client_id'),
-            'app_secret' => config('services.facebook.client_secret'),
-            'default_graph_version' => 'v16.0',
-        ]);
-
         $accessToken = Auth::user()->access_token;
-
-        $fb->setDefaultAccessToken($accessToken);
-
+        $this->fb->setDefaultAccessToken($accessToken);
         try {
-            $response = $fb->get('/me/accounts?fields=cover,emails,picture,id,name,url,username,access_token&limit=400');
+            $response = $this->fb->get('/me/accounts?fields=cover,emails,picture,id,name,url,username,access_token&limit=400');
             $pages = $response->getGraphList()->asArray();
             UserFacebookPage::where('user_id', Auth::id())->delete();
             foreach ($pages as $page) {
@@ -88,6 +94,29 @@ class FacebookController extends Controller
                     'username' => isset($page['username']) ? $page['username'] : null,
                     'access_token' => $page['access_token'],
                 ]);
+            }
+        } catch (Facebook\Exceptions\FacebookResponseException $e) {
+            return redirect()->route('fb.login');
+        } catch (Facebook\Exceptions\FacebookSDKException $e) {
+            return redirect()->route('fb.login');
+        }
+    }
+
+    public function getAdAccounts()
+    {
+        $accessToken = Auth::user()->access_token;
+        $this->fb->setDefaultAccessToken($accessToken);
+        try {
+            $response = $this->fb->get('me/adaccounts?fields=account_id,business,users{id}');
+            $AdAccounts = $response->getGraphList()->asArray();
+            $user_facebook_id = Auth::user()->facebook_id;
+            foreach ($AdAccounts as $AdAccount) {
+                if (isset($AdAccount['users'][0]['id'])) {
+                    $userFacebookID = $AdAccount['users'][0]['id'];
+                    if ($userFacebookID == $user_facebook_id) { 
+                        Auth::user()->update(['account_id' => $AdAccount['account_id']]);
+                    }
+                }
             }
         } catch (Facebook\Exceptions\FacebookResponseException $e) {
             return redirect()->route('fb.login');

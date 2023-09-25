@@ -18,7 +18,7 @@ class CreateUserFacebookPagesTable extends Migration
             $table->unsignedBigInteger('user_id'); // Foreign key to link to the user table
             $table->string('page_id')->unique(); // Facebook Page ID
             $table->string('name'); // Page name
-            $table->string('cover_url'); // URL of the page cover image
+            $table->text('cover_url'); // URL of the page cover image
             $table->string('email')->nullable(); // Email associated with the page
             $table->string('username')->nullable(); // Username of the page
             $table->text('access_token'); // Access token for the page

@@ -13,12 +13,11 @@ class Campaign extends Model
 
     protected $fillable = [
         'page_id',
+        'campaign_id',
         'name',
         'budget',
         'target_audience',
-        'ad_content',
         'start_date',
-        'end_date',
     ];
 
     public function page()

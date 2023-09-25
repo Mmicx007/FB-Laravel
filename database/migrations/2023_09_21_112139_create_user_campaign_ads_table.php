@@ -15,10 +15,10 @@ class CreateUserCampaignAdsTable extends Migration
     {
         Schema::create('user_campaign_ads', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('campaign_id');
+            $table->string('campaign_id');
             $table->text('ad_content');
             $table->string('image_url');
-            $table->json('targeting_parameters');
+            $table->string('targeting_parameters');
             $table->timestamps();
         });
     }

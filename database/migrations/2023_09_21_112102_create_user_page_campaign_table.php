@@ -15,14 +15,13 @@ class CreateUserPageCampaignTable extends Migration
     {
         Schema::create('user_page_campaign', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('page_id');
+            $table->string('user_id');
+            $table->string('page_id');
+            $table->string('campaign_id');
             $table->string('name');
             $table->decimal('budget', 10, 2);
-            $table->json('target_audience');
-            $table->text('ad_content');
+            $table->string('target_audience');
             $table->dateTime('start_date');
-            $table->dateTime('end_date');
             $table->timestamps();
         });
     }

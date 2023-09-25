@@ -51,22 +51,10 @@
                             <input type="text" name="target_audience" id="target_audience" class="form-control" value="{{ old('target_audience', $campaign->target_audience) }}" required>
                         </div>
 
-                        <!-- Ad Content -->
-                        <div class="form-group">
-                            <label for="ad_content">Ad Content:</label>
-                            <textarea name="ad_content" id="ad_content" class="form-control" rows="4" required>{{ old('ad_content', $campaign->ad_content) }}</textarea>
-                        </div>
-
                         <!-- Start Date -->
                         <div class="form-group">
                             <label for="start_date">Start Date:</label>
                             <input type="datetime-local" name="start_date" id="start_date" class="form-control" value="{{ old('start_date', $campaign->start_date) }}" required>
-                        </div>
-
-                        <!-- End Date -->
-                        <div class="form-group">
-                            <label for="end_date">End Date:</label>
-                            <input type="datetime-local" name="end_date" id="end_date" class="form-control" value="{{ old('end_date', $campaign->end_date) }}" required>
                         </div>
 
                         <!-- Submit Button -->
